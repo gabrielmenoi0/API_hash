@@ -1,7 +1,10 @@
 package com.example.encurtadorurl.encurtador.url.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_cliente")
@@ -9,13 +12,15 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @org.hibernate.annotations.Type(type="uuid-char")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String nome;
     private String hash;
     private String senha;
 
-    public Cliente(Long id, String nome, String hash, String senha) {
+    public Cliente(UUID id, String nome, String hash, String senha) {
         this.id = id;
         this.nome = nome;
         this.hash = hash;
@@ -25,11 +30,11 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

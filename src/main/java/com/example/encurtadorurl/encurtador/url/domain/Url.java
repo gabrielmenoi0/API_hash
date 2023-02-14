@@ -1,25 +1,30 @@
 package com.example.encurtadorurl.encurtador.url.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_url")
 public class Url implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @org.hibernate.annotations.Type(type="uuid-char")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private  String senha;
     private  String hash;
-    private Date dateSave;
+    private String dateSave;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -39,15 +44,15 @@ public class Url implements Serializable {
         this.hash = hash;
     }
 
-    public Date getDateSave() {
+    public String getDateSave() {
         return dateSave;
     }
 
-    public void setDateSave(Date dateSave) {
+    public void setDateSave(String dateSave) {
         this.dateSave = dateSave;
     }
 
-    public Url(Long id, String senha, String hash, Date dateSave) {
+    public Url(UUID id, String senha, String hash, String dateSave) {
         this.id = id;
         this.senha = senha;
         this.hash = hash;
