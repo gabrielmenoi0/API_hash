@@ -31,8 +31,8 @@ public class ClienteService {
 //    public Optional<Cliente> findByName(String name) {
 //        return clienteRepository.findByName(name);
 //    }
-    public Optional<Cliente> findById(String id) {
-        return clienteRepository.findById(UUID.fromString(id));
+    public Optional<Cliente> findById(UUID id) {
+        return clienteRepository.findById(id);
     }
     public void delete(Cliente user){
         clienteRepository.delete(user);

@@ -32,9 +32,9 @@ public class UrlController {
         return ResponseEntity.status(HttpStatus.OK).body(services.save(url));
     }
 
-    @GetMapping(path = "api/url/id")
+    @GetMapping(path = "api/url/id/{id}")
     @ApiOperation(value = "Buscar Senhas por ID")
-    public ResponseEntity<Optional<Url>> findId(@RequestParam UUID id){
+    public ResponseEntity<Optional<Url>> findId(@PathVariable(value = "id")UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(services.findById(id));
     }
 //    @GetMapping(path = "api/url/hash/${hash}")

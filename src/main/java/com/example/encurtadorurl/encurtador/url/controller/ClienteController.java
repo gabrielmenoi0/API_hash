@@ -30,11 +30,11 @@ public class ClienteController {
     public ResponseEntity<Cliente> create(@RequestBody Cliente cliente){
         return ResponseEntity.status(HttpStatus.OK).body(services.save(cliente));
     }
-//    @GetMapping(path = "api/cliente/${id}")
-//    @ApiOperation(value = "Buscar cliente por ID")
-//    public ResponseEntity<Optional<Cliente>> findId(@RequestBody String id){
-//        return ResponseEntity.status(HttpStatus.OK).body(services.findById(id));
-//    }
+    @GetMapping(path = "api/cliente/id/{id}")
+    @ApiOperation(value = "Buscar cliente por ID")
+    public ResponseEntity<Optional<Cliente>> findId(@PathVariable(value = "id")UUID id){
+        return ResponseEntity.status(HttpStatus.OK).body(services.findById(id));
+    }
 //    @GetMapping(path = "api/cliente/${name}")
 //    @ApiOperation(value = "Buscar cliente por nome")
 //    public ResponseEntity<Optional<Cliente>> findName(@RequestBody String name){
