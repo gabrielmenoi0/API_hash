@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,13 +22,18 @@ public class UrlService {
     public List<Url> findAll() {
         return urlRepository.findAll();
     }
-    public Url save(Url senha){
+    public Url save(String url){
         Url password = new Url();
-        String hash = generateHas(senha.getSenha());
-        password.setDateSave(senha.getDateSave());
+        String hash = generateHas(url);
+        password.setDateSave(dateSave());
         password.setHash(hash);
-        password.setSenha(senha.getSenha());
+        password.setUrl(url.toString());
         return urlRepository.save(password);
+    }
+
+    public String dateSave(){
+        LocalDate dataNascimento = LocalDate.now();
+        return dataNascimento.toString();
     }
 
     public Optional<Url> findById(UUID id) {

@@ -1,4 +1,5 @@
 package com.example.encurtadorurl.encurtador.url.controller;
+import com.example.encurtadorurl.encurtador.url.DTO.ReciveClienteDTO;
 import com.example.encurtadorurl.encurtador.url.domain.Cliente;
 import com.example.encurtadorurl.encurtador.url.service.ClienteService;
 import io.swagger.annotations.Api;
@@ -23,9 +24,14 @@ public class ClienteController {
     public ResponseEntity<List<Cliente>> clientes(){
         return ResponseEntity.status(HttpStatus.OK).body(services.findAll());
     }
+//    @PutMapping(path = "api/cliente/")
+//    @ApiOperation(value = "Edição de clientes")
+//    public ResponseEntity<List<Cliente>> alterCliente(@RequestBody Cliente cliente){
+//        return ResponseEntity.status(HttpStatus.OK).body(services.alterCliente(cliente));
+//    }
     @PostMapping(path = "api/cliente/create")
     @ApiOperation(value = "Criação de clientes")
-    public ResponseEntity<Cliente> create(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> create(@RequestBody ReciveClienteDTO cliente){
         return ResponseEntity.status(HttpStatus.OK).body(services.save(cliente));
     }
     @GetMapping(path = "api/cliente/id/{id}")

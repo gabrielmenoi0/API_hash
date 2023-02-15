@@ -17,15 +17,24 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String nome;
-    private String hash;
     private String senha;
+    private String DateRegister;
 
-    public Cliente(UUID id, String nome, String hash, String senha) {
+    public String getDateRegister(String s) {
+        return DateRegister;
+    }
+
+    public Cliente(UUID id, String nome, String senha, String dateRegister) {
         this.id = id;
         this.nome = nome;
-        this.hash = hash;
         this.senha = senha;
+        DateRegister = dateRegister;
     }
+
+    public void setDateRegister(String dateRegister) {
+        DateRegister = dateRegister;
+    }
+
 
     public Cliente() {
     }
@@ -46,13 +55,6 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
 
     public String getSenha() {
         return senha;

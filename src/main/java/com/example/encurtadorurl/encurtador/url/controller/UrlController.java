@@ -4,8 +4,6 @@ import com.example.encurtadorurl.encurtador.url.domain.Url;
 import com.example.encurtadorurl.encurtador.url.service.UrlService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +25,9 @@ public class UrlController {
     public ResponseEntity<List<Url>> urls(){
         return ResponseEntity.status(HttpStatus.OK).body(services.findAll());
     }
-    @PostMapping(path = "api/url/create")
+    @PostMapping(path = "api/url/create/{url}")
     @ApiOperation(value = "Criação de senhas")
-    public ResponseEntity<Url> create(@RequestBody Url url){
+    public ResponseEntity<Url> create(@RequestBody String url){
         return ResponseEntity.status(HttpStatus.OK).body(services.save(url));
     }
 

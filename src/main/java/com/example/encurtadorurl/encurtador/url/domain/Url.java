@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -16,7 +15,7 @@ public class Url implements Serializable {
     @org.hibernate.annotations.Type(type="uuid-char")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private  String senha;
+    private  String url;
     private  String hash;
     private String dateSave;
 
@@ -28,12 +27,12 @@ public class Url implements Serializable {
         this.id = id;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getUrl() {
+        return url;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getHash() {
@@ -52,9 +51,9 @@ public class Url implements Serializable {
         this.dateSave = dateSave;
     }
 
-    public Url(UUID id, String senha, String hash, String dateSave) {
+    public Url(UUID id, String url, String hash, String dateSave) {
         this.id = id;
-        this.senha = senha;
+        this.url = url;
         this.hash = hash;
         this.dateSave = dateSave;
     }
