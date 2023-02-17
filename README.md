@@ -23,7 +23,7 @@
 <p align="justify">Aplicação Java com SPRING BOOT, desenvolvida na aula de Desenvolvimento avançado de Sistemas de Informação da 4a etapa do curso de Sistemas de informação da Univem.</p>
 
 <div align="center" class="row">
-<img src="readme/img.png" width="720" height="500"/>
+<img src="readme/img.png" width="900" height="550"/>
 </div>
 
 [//]: # (## Técnicas e tecnologias utilizadas)
