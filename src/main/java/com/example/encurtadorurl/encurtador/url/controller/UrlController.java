@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,16 +38,33 @@ public class UrlController {
     public ResponseEntity<Optional<Url>> findId(@PathVariable(value = "id")UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(services.findById(id));
     }
-//    @GetMapping(path = "api/url/hash/${hash}")
-//    @ApiOperation(value = "Buscar senhas por HASH")
-//    public ResponseEntity<Optional<Url>> findHahs(@RequestBody String hahs){
-//        return ResponseEntity.status(HttpStatus.OK).body(services.findByHash(hahs));
-//    }
-//    @GetMapping(path = "api/url/password/${password}")
-//    @ApiOperation(value = "Buscar senhas")
-//    public ResponseEntity<Optional<Url>> findPassword(@RequestBody String pasword){
-//        return ResponseEntity.status(HttpStatus.OK).body(services.findByPassword(pasword));
-//    }
+    @GetMapping(path = "api/url/{hash}")
+    @ApiOperation(value = "Busca e redireciona URL original pelo HASH")
+    public ResponseEntity<?> finHash(@PathVariable(value = "hash")String url, HttpServletResponse response){
+        Url urlToRet = services.getHashUrl(url);
+
+        try {
+            response.sendRedirect(urlToRet.getUrl());
+            return ResponseEntity.status(HttpStatus.OK).body(true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @GetMapping(path = "api/url/busca")
+    @ApiOperation(value = "Busca e redireciona URL original pelo URL")
+    public ResponseEntity<?> findUrl(@RequestBody String url, HttpServletResponse response){
+        Url urlToRet = services.getUrl(url);
+
+        try {
+            response.sendRedirect(urlToRet.getUrl());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     @DeleteMapping(path = "api/url/delete")
     @ApiOperation(value = "Excluir senha")
     public ResponseEntity delete(@RequestBody Url url){
