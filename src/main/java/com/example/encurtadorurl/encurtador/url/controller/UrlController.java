@@ -4,6 +4,7 @@ import com.example.encurtadorurl.encurtador.url.domain.Url;
 import com.example.encurtadorurl.encurtador.url.service.UrlService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,12 @@ public class UrlController {
     private UrlService services;
 
     @GetMapping(path = "api/url/list")
-    @ApiOperation(value = "Listagem de Senhas")
+    @ApiOperation(value = "Listagem de Urls")
     public ResponseEntity<List<Url>> urls(){
         return ResponseEntity.status(HttpStatus.OK).body(services.findAll());
     }
-    @PostMapping(path = "api/url/create/{url}")
-    @ApiOperation(value = "Criação de senhas")
+    @PostMapping(path = "api/url/create/")
+    @ApiOperation(value = "Criação de urls")
     public ResponseEntity<Url> create(@RequestBody String url){
         return ResponseEntity.status(HttpStatus.OK).body(services.save(url));
     }
@@ -66,13 +67,13 @@ public class UrlController {
     }
 
     @DeleteMapping(path = "api/url/delete")
-    @ApiOperation(value = "Excluir senha")
+    @ApiOperation(value = "Excluir URL")
     public ResponseEntity delete(@RequestBody Url url){
         services.delete(url);
         return ResponseEntity.status(HttpStatus.OK).body(true);
     }
     @DeleteMapping(path = "api/url/delete/{id}")
-    @ApiOperation(value = "Excluir senha por id")
+    @ApiOperation(value = "Excluir URL por id")
     public ResponseEntity deletebyid(@PathVariable(value = "id")UUID id){
         services.deletebyid(id);
         return ResponseEntity.status(HttpStatus.OK).body(true);
