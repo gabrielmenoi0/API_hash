@@ -41,7 +41,7 @@ public class UrlController {
     }
     @GetMapping(path = "api/url/{hash}")
     @ApiOperation(value = "Busca e redireciona URL original pelo HASH")
-    public ResponseEntity<?> finHash(@PathVariable(value = "hash")String url, HttpServletResponse response){
+    public ResponseEntity<?> findHash(@PathVariable(value = "hash")String url, HttpServletResponse response){
         Url urlToRet = services.getHashUrl(url);
 
         try {
