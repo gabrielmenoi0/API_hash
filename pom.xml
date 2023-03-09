@@ -11,7 +11,7 @@
 	<groupId>com.example.encurtadorurl</groupId>
 	<artifactId>encurtador.url</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>encurtador.url</name>
 	<description>Encurtador de Url</description>
 	<properties>

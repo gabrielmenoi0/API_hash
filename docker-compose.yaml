@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: 'openjdk:11'
+    command: java -cp /app/resources:/app/classes:/app/libs/* com.h2database.server.web.WebServlet -pgWeb
+    volumes:
+      - './data:/data'
+      - './src/main/resources:/app/resources'
+      - './target/classes:/app/classes'
+      - './target/libs:/app/libs'
+    ports:
+      - '8080:8080'
+    environment:
+      - 'DB_DRIVER=org.h2.Driver'
+      - 'DB_URL=jdbc:h2:mem:urldb'
+      - 'DB_USERNAME=sa'
+      - 'DB_PASSWORD='
