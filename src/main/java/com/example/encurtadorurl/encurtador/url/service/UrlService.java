@@ -22,39 +22,46 @@ public class UrlService {
         return urlRepository.findAll();
     }
     public Url save(String url){
-        Url password = new Url();
+        Url urlSaved = new Url();
         String hash = generateHas(url);
-        password.setDateSave(dateSave());
-        password.setHash(hash);
-        password.setUrl(url.toString());
-        return urlRepository.save(password);
+        urlSaved.setDateSave(dateSave());
+        urlSaved.setHash(hash);
+        urlSaved.setUrl(url.toString());
+        urlSaved.setDateExpired(dateExpired(dateSave()));
+        return urlRepository.save(urlSaved);
     }
 
-    public String dateSave(){
-        LocalDate dataNascimento = LocalDate.now();
-        return dataNascimento.toString();
+    public LocalDate dateSave(){
+        LocalDate data = LocalDate.now();
+        return data;
+    }
+    public LocalDate dateExpired(LocalDate date){
+        LocalDate diaSeguinte = date.plusDays(1);
+        return diaSeguinte;
     }
 
     public Optional<Url> findById(UUID id) {
         return urlRepository.findById(id);
+    }
+    public Url getByHahs(String url) {
+        return urlRepository.findByhash(url);
     }
 
     public String generateHas (String url){
 
         String encodedUrl = "";
         LocalDateTime time = LocalDateTime.now();
-        encodedUrl = Hashing.murmur3_32()
+        return encodedUrl = Hashing.murmur3_32()
                 .hashString(url.concat(time.toString()), StandardCharsets.UTF_8)
-                .toString();
-        return  encodedUrl;
+                .toString().substring(0,6);
     }
-    public Url getHashUrl(String hahs) {
-        Url urlToRet = urlRepository.findByhash(hahs);
+    public Url getHashUrl(String hash) {
+        Url urlToRet = urlRepository.findByhash(hash);
         return urlToRet;
     }
-    public Url getUrl(String url) {
+    public Optional<Url> getUrl(String url) {
         Url urlToRet = urlRepository.findByurl(url);
-        return urlToRet;
+        return Optional.ofNullable(urlToRet);
     }
 
     public void delete(Url url){

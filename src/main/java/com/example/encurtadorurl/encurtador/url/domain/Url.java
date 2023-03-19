@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +19,25 @@ public class Url implements Serializable {
     private UUID id;
     private  String url;
     private  String hash;
-    private String dateSave;
+
+    public LocalDate getDateSave() {
+        return dateSave;
+    }
+
+    private LocalDate dateSave;
+    private LocalDate dateExpired;
+
+    public void setDateSave(LocalDate dateSave) {
+        this.dateSave = dateSave;
+    }
+
+    public LocalDate getDateExpired() {
+        return dateExpired;
+    }
+
+    public void setDateExpired(LocalDate dateExpired) {
+        this.dateExpired = dateExpired;
+    }
 
     public UUID getId() {
         return id;
@@ -43,19 +63,13 @@ public class Url implements Serializable {
         this.hash = hash;
     }
 
-    public String getDateSave() {
-        return dateSave;
-    }
 
-    public void setDateSave(String dateSave) {
-        this.dateSave = dateSave;
-    }
-
-    public Url(UUID id, String url, String hash, String dateSave) {
+    public Url(UUID id, String url, String hash, LocalDate dateSave,LocalDate dateExpired) {
         this.id = id;
         this.url = url;
         this.hash = hash;
         this.dateSave = dateSave;
+        this.dateExpired = dateExpired;
     }
 
     public Url() {
