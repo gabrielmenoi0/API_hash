@@ -39,3 +39,10 @@
   <a href="#abrir-e-rodar">Gerenciamento do cache</a> •
   <a href="#acesso-ao-projeto">Deploy na AWS</a> 
 </div>
+
+## Integrantes da equipe
+<p align="justify">Gabriel Menoi - RA:602655</p>
+<p align="justify">Gabriel Mielo - RA:601128</p>
+<p align="justify">Matheus Araújo - RA:603236</p>
+<p align="justify">Matheus Assunção - RA:602000</p>
+<p align="justify">Tiago Santos - RA:603181</p>
