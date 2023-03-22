@@ -9,7 +9,7 @@ services:
       - './target/classes:/app/classes'
       - './target/libs:/app/libs'
     ports:
-      - '8080:8080'
+      - '8081:8081'
     environment:
       - 'DB_DRIVER=org.h2.Driver'
       - 'DB_URL=jdbc:h2:mem:urldb'
