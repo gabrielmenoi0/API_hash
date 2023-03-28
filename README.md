@@ -45,3 +45,4 @@
 <p align="justify">Matheus Araújo - RA:603236</p>
 <p align="justify">Matheus Assunção - RA:602000</p>
 <p align="justify">Tiago Santos - RA:603181</p>
+<p align="justify">Vitor Studzieski - RA:608661</p>
