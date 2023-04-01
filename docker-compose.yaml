@@ -1,6 +1,6 @@
 version: '3'
 services:
-  db:
+  api:
     image: 'openjdk:11'
 #    command: java -cp /app/resources:/app/classes:/app/libs/* com.h2database.server.web.WebServlet -pgWeb
     volumes:

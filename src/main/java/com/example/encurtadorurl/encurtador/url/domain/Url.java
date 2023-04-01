@@ -5,8 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
+
 
 @Entity
 @Table(name = "tb_url")

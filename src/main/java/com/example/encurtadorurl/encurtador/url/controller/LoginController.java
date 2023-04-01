@@ -16,10 +16,15 @@ import java.util.Optional;
 @Api(value = "Login")
 public class LoginController {
     @Autowired
-    public LoginServices services;
-    @PostMapping(path = "api/login")
-    @ApiOperation(value = "Login do Serviço")
-    public ResponseEntity <Optional<Token>> login(@RequestBody Login acesso){
-        return ResponseEntity.status(HttpStatus.OK).body(services.login(acesso));
+    private LoginServices loginServices;
+
+    @PostMapping("/login")
+        public ResponseEntity<?> login(@RequestBody Login loginForm) {
+
+//        String token = loginServices.generateToken(loginForm.getEmail());
+
+        return ResponseEntity.ok(true);
+//        return ResponseEntity.ok(new JwtResponse(token));
     }
+
 }
