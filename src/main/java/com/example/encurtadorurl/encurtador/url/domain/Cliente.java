@@ -17,6 +17,20 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String nome;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDateRegister() {
+        return DateRegister;
+    }
+
+    private String email;
     private String senha;
     private String DateRegister;
 
@@ -24,10 +38,11 @@ public class Cliente implements Serializable {
         return DateRegister;
     }
 
-    public Cliente(UUID id, String nome, String senha, String dateRegister) {
+    public Cliente(UUID id, String nome, String senha, String dateRegister,String email) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
+        this.email = email;
         DateRegister = dateRegister;
     }
 

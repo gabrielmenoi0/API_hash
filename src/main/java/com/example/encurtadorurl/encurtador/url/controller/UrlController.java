@@ -38,7 +38,7 @@ public class UrlController {
         }else {
             var checkExist = services.getUrl(url.replace("\"", ""));
             if(checkExist.isEmpty() == false) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("URL Já cadastrada!");
+                return ResponseEntity.status(HttpStatus.OK).body(checkExist.get().getHash());
             }else {
                 var result = services.save(url.replace("\"", ""));
                 if (result.getHash() != null) {

@@ -19,6 +19,7 @@ public class ClienteService {
         Cliente user = new Cliente();
         user.setNome(cliente.getNome());
         user.setSenha(cliente.getSenha());
+        user.setEmail(cliente.getEmail());
         user.setDateRegister(dateSave());
         return clienteRepository.save(user);
     }

@@ -1,4 +1,4 @@
-package com.example.encurtadorurl.encurtador.url;
+package com.example.encurtadorurl.encurtador.url.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
