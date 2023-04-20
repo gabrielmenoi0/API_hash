@@ -1,12 +1,12 @@
 package com.example.encurtadorurl.encurtador.url.domain;
 
 
-public class Token {
+public class token {
     public String getToken() {
         return Token;
     }
 
-    public Token() {
+    public token() {
 
     }
 

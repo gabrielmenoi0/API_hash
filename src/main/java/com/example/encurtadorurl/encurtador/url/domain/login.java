@@ -1,6 +1,6 @@
 package com.example.encurtadorurl.encurtador.url.domain;
 
-public class Login {
+public class login {
     private  String email;
     private  String password;
 
@@ -20,7 +20,7 @@ public class Login {
         this.password = password;
     }
 
-    public Login(String email, String password) {
+    public login(String email, String password) {
         this.email = email;
         this.password = password;
     }

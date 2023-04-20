@@ -1,11 +1,11 @@
-package com.example.encurtadorurl.encurtador.url.DTO;
+package com.example.encurtadorurl.encurtador.url.dto;
 
-public class ReciveClienteDTO {
+public class reciveClienteDTO {
     private String nome;
     private String senha;
     private String email;
 
-    public ReciveClienteDTO(String nome, String senha, String email) {
+    public reciveClienteDTO(String nome, String senha, String email) {
         this.nome = nome;
         this.senha = senha;
         this.email = email;

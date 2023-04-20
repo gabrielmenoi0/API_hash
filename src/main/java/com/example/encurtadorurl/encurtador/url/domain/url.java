@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_url")
-public class Url implements Serializable {
+public class url implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -18,7 +18,16 @@ public class Url implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private  String url;
+    public String idUser;
     private  String hash;
+
+    public String getUser() {
+        return idUser;
+    }
+
+    public void setUser(String user) {
+        this.idUser = user;
+    }
 
     public LocalDate getDateSave() {
         return dateSave;
@@ -64,14 +73,15 @@ public class Url implements Serializable {
     }
 
 
-    public Url(UUID id, String url, String hash, LocalDate dateSave,LocalDate dateExpired) {
+    public url(UUID id, String url, String hash, LocalDate dateSave, LocalDate dateExpired, String user) {
         this.id = id;
         this.url = url;
         this.hash = hash;
         this.dateSave = dateSave;
         this.dateExpired = dateExpired;
+        this.idUser = user;
     }
 
-    public Url() {
+    public url() {
     }
 }

@@ -1,19 +1,35 @@
 package com.example.encurtadorurl.encurtador.url.service;
-import com.example.encurtadorurl.encurtador.url.domain.Login;
-import com.example.encurtadorurl.encurtador.url.domain.Token;
 
+import com.example.encurtadorurl.encurtador.url.domain.cliente;
+import com.example.encurtadorurl.encurtador.url.domain.login;
+import com.example.encurtadorurl.encurtador.url.repository.clienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class LoginServices {
+public class loginServices {
 
+    @Autowired
+    private clienteRepository repository;
+
+    public Optional<cliente> login (login info){
+        List<cliente> list = repository.findAll();
+        cliente user = new cliente();
+        list.forEach(element -> {
+            if(element.getEmail().equals(info.getEmail()) && element.getSenha().equals(info.getPassword())){
+                user.setToken(element.getToken());
+                user.setId(element.getId());
+                user.setNome(element.getNome());
+                user.setEmail(element.getSenha());
+                user.setDateRegister(element.getDateRegister());
+                user.setSenha(element.getSenha());
+            }
+        });
+        return Optional.of(user);
+    }
 //    private final String JWT_SECRET = "jwtsecretkey";
 //
 //    public String generateToken(String username) {

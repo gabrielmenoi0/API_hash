@@ -25,9 +25,9 @@ services:
     image: nginx
     container_name: nginx
     ports:
-      - "80:80"
+      - "81:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/otp/homebrew/nginx/etc/nginx/nginx.conf
     depends_on:
       - app
   app:
