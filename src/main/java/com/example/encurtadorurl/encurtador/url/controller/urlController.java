@@ -36,7 +36,8 @@ public class urlController {
     public ResponseEntity  urls(@PathVariable(value = "token") String token){
         var resultClient = clienteService.findByToken(token);
         if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
         }else {
             return ResponseEntity.status(HttpStatus.OK).body(services.findAll());
         }
@@ -49,7 +50,7 @@ public class urlController {
         }else {
             var resultClient = clienteService.findByToken(token);
             if(resultClient.get().getToken() ==null){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
             }else{
                 List<url> checkExist = services.getUrl(url.getUrl().replace("\"", ""));
                 if(checkExist != null && !checkExist.isEmpty()) {
@@ -76,10 +77,10 @@ public class urlController {
     @ApiOperation(value = "Busca URLs por Usuário")
     public ResponseEntity findId(@PathVariable(value = "token") String token){
         var resultClient = clienteService.findByToken(token);
-        if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+        if(resultClient.get().getToken() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
         }else {
-            return ResponseEntity.status(HttpStatus.OK).body(services.findByToken(token));
+            return ResponseEntity.status(HttpStatus.OK).body(services.findByToken(resultClient.get().getId().toString()));
         }
     }
     @Cacheable("url/hash")
@@ -108,7 +109,9 @@ public class urlController {
     public ResponseEntity delete(@RequestBody url url,@PathVariable(value = "token") String token){
         var resultClient = clienteService.findByToken(token);
         if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
+
         }else {
             services.delete(url);
             return ResponseEntity.status(HttpStatus.OK).body(true);
@@ -119,7 +122,9 @@ public class urlController {
     public ResponseEntity deletebyid(@PathVariable(value = "id")UUID id,@PathVariable(value = "token") String token){
         var resultClient = clienteService.findByToken(token);
         if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
+
         }else {
             services.deletebyid(id);
             return ResponseEntity.status(HttpStatus.OK).body(true);

@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -24,22 +21,30 @@ public class clienteController {
     public ResponseEntity clientes(@PathVariable(value = "token") String token){
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
+
         }else{
         return ResponseEntity.status(HttpStatus.OK).body(services.findAll());
         }
     }
-//    @PutMapping(path = "api/cliente/")
-//    @ApiOperation(value = "Edição de clientes")
-//    public ResponseEntity<List<Cliente>> alterCliente(@RequestBody Cliente cliente){
-//        return ResponseEntity.status(HttpStatus.OK).body(services.alterCliente(cliente));
-//    }
+    @PutMapping(path = "api/cliente/edit/{token}")
+    @ApiOperation(value = "Edição de clientes")
+    public ResponseEntity alterCliente(@PathVariable(value = "token") String token,@RequestBody cliente cliente){
+        var resultClient = services.findByToken(token);
+        if(resultClient.get().getToken() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+        }else {
+            return ResponseEntity.status(HttpStatus.OK).body(services.alterCliente(cliente));
+        }
+    }
     @PostMapping(path = "api/cliente/create")
     @ApiOperation(value = "Criação de clientes")
     public ResponseEntity<String> create(@RequestBody reciveClienteDTO cliente){
         var resultClient = services.findRegister(cliente.getEmail());
         if(resultClient.get().getToken() != null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
         }else {
             return ResponseEntity.status(HttpStatus.OK).body(services.save(cliente));
         }
@@ -49,7 +54,9 @@ public class clienteController {
     public ResponseEntity findId(@PathVariable(value = "id")UUID id, @PathVariable(value = "token") String token){
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
+
         }else {
             return ResponseEntity.status(HttpStatus.OK).body(services.findById(id));
         }
@@ -64,7 +71,9 @@ public class clienteController {
     public ResponseEntity delete(@RequestBody cliente cliente, @PathVariable(value = "token") String token){
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
+
         }else {
             services.delete(cliente);
             return ResponseEntity.status(HttpStatus.OK).body(true);
@@ -75,7 +84,9 @@ public class clienteController {
     public ResponseEntity delete(@PathVariable(value = "id")UUID id, @PathVariable(value = "token") String token){
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
+
+
         }else {
             services.deletebyid(id);
             return ResponseEntity.status(HttpStatus.OK).body(true);

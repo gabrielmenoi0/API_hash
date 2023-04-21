@@ -1,18 +1,14 @@
 package com.example.encurtadorurl.encurtador.url.service;
-
 import com.example.encurtadorurl.encurtador.url.dto.reciveClienteDTO;
 import com.example.encurtadorurl.encurtador.url.domain.cliente;
 import com.example.encurtadorurl.encurtador.url.repository.clienteRepository;
-import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 
 @Service
 public class ClienteService {
@@ -41,6 +37,17 @@ public class ClienteService {
     }
     public Optional<cliente> findById(UUID id) {
         return repository.findById(id);
+    }
+    public cliente alterCliente(cliente user) {
+        repository.deleteById(user.getId());
+        cliente userNew = new cliente();
+        userNew.setNome(user.getNome());
+        userNew.setSenha(user.getSenha());
+        userNew.setEmail(user.getEmail());
+        userNew.setDateRegister(user.getDateRegister());
+        userNew.setToken(user.getToken());
+        userNew.setId(user.getId());
+        return repository.save(user);
     }
     public Optional<cliente> findByToken(String token) {
         List<cliente> list = repository.findAll();
@@ -79,10 +86,15 @@ public class ClienteService {
         repository.deleteById(id);
     }
     public String generateToken(String password){
-        LocalDateTime time = LocalDateTime.now();
-        return Hashing.murmur3_32()
-                .hashString(password.concat(time.toString()), StandardCharsets.UTF_8)
-                .toString();
-    }
+        String secret="JsonWebToken";
 
-}
+            Map<String, Object> claims = new HashMap<>();
+            return Jwts.builder()
+                    .setClaims(claims)
+                    .setSubject(password)
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis() + 100000 * 1000))
+                    .signWith(SignatureAlgorithm.HS512, secret).compact();
+
+        }
+    }
