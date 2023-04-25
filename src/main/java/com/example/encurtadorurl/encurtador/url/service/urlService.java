@@ -4,9 +4,7 @@ import com.example.encurtadorurl.encurtador.url.domain.url;
 import com.example.encurtadorurl.encurtador.url.repository.urlRepository;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
-
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,8 +20,8 @@ public class urlService {
     private urlRepository repositoryUrl;
     @Autowired
     private ClienteService clienteService;
-    @Autowired
-    CacheManager cacheManager;
+//    @Autowired
+//    CacheManager cacheManager;
 
 
     public List<url> findAll() {
@@ -54,18 +52,18 @@ public class urlService {
         LocalDate data = LocalDate.now();
         return data;
     }
-    public void deleteCache(String cacheName){
-//        evictSingleCacheValue(cacheName,cacheKey);
-        evictAllCacheValues(cacheName);
-    }
+//    public void deleteCache(String cacheName){
+////        evictSingleCacheValue(cacheName,cacheKey);
+//        evictAllCacheValues(cacheName);
+//    }
 
 //    public void evictSingleCacheValue(String cacheName, String cacheKey) {
 //        cacheManager.getCache(cacheName).evict(cacheKey);
 //    }
 
-    public void evictAllCacheValues(String cacheName) {
-        cacheManager.getCache(cacheName).clear();
-    }
+//    public void evictAllCacheValues(String cacheName) {
+//        cacheManager.getCache(cacheName).clear();
+//    }
     public LocalDate dateExpired(LocalDate date){
         LocalDate diaSeguinte = date.plusDays(1);
         return diaSeguinte;

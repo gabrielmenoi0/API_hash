@@ -1,6 +1,6 @@
 package com.example.encurtadorurl.encurtador.url.controller;
 
-import com.example.encurtadorurl.encurtador.url.domain.cliente;
+
 import com.example.encurtadorurl.encurtador.url.domain.password;
 import com.example.encurtadorurl.encurtador.url.domain.url;
 import com.example.encurtadorurl.encurtador.url.service.ClienteService;
@@ -29,7 +29,6 @@ public class urlController {
     @Autowired
     private ClienteService clienteService;
 
-
     @Cacheable("url/list")
     @GetMapping(path = "api/url/list/{token}")
     @ApiOperation(value = "Listagem de Urls")
@@ -37,11 +36,11 @@ public class urlController {
         var resultClient = clienteService.findByToken(token);
         if(resultClient.get().getToken() ==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
         }else {
             return ResponseEntity.status(HttpStatus.OK).body(services.findAll());
         }
     }
+
     @PostMapping(path = "api/url/create/{token}")
     @ApiOperation(value = "Criação de urls")
     public ResponseEntity<String> create(@RequestBody password url, @PathVariable(value = "token") String token){
@@ -66,12 +65,14 @@ public class urlController {
             }
         }
     }
+
     @Cacheable("url/id")
     @GetMapping(path = "api/url/id/{id}")
     @ApiOperation(value = "Busca URLs por ID")
     public ResponseEntity<Optional<url>> findId(@PathVariable(value = "id") UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(services.findById(id));
     }
+
     @Cacheable("url/user")
     @GetMapping(path = "api/url/user/{token}")
     @ApiOperation(value = "Busca URLs por Usuário")
@@ -87,15 +88,15 @@ public class urlController {
     @GetMapping(path = "api/url/{hash}")
     @ApiOperation(value = "Busca e redireciona URL original pelo HASH")
     public ResponseEntity<?> findHash(@PathVariable(value = "hash")String url, HttpServletResponse response){
-        com.example.encurtadorurl.encurtador.url.domain.url urlToRet = services.getHashUrl(url);
+        url urlToRet = services.getHashUrl(url);
         try {
             response.sendRedirect(urlToRet.getUrl());
             return ResponseEntity.status(HttpStatus.OK).body(true);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
-
     }
+
     @Cacheable("url/url")
     @GetMapping(path = "api/url/busca/{hash}")
     @ApiOperation(value = "Busca atravez do Hash retorna a URL")
@@ -110,8 +111,6 @@ public class urlController {
         var resultClient = clienteService.findByToken(token);
         if(resultClient.get().getToken() ==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
-
         }else {
             services.delete(url);
             return ResponseEntity.status(HttpStatus.OK).body(true);
@@ -123,18 +122,9 @@ public class urlController {
         var resultClient = clienteService.findByToken(token);
         if(resultClient.get().getToken() ==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
-
         }else {
             services.deletebyid(id);
             return ResponseEntity.status(HttpStatus.OK).body(true);
         }
-    }
-    @DeleteMapping(path = "api/url/delete/cache}")
-    @ApiOperation(value = "Limpa o cache da aplicação")
-//    @CacheEvict("url/hash")
-    public ResponseEntity deleteCache(@RequestBody String name){
-        services.deleteCache(name);
-        return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.encurtadorurl.encurtador.url.controller;
-import com.example.encurtadorurl.encurtador.url.dto.reciveClienteDTO;
+
+
 import com.example.encurtadorurl.encurtador.url.domain.cliente;
+import com.example.encurtadorurl.encurtador.url.dto.reciveClienteDTO;
 import com.example.encurtadorurl.encurtador.url.service.ClienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.UUID;
 
 @RestController
@@ -22,20 +25,18 @@ public class clienteController {
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
-
         }else{
         return ResponseEntity.status(HttpStatus.OK).body(services.findAll());
         }
     }
     @PutMapping(path = "api/cliente/edit/{token}")
     @ApiOperation(value = "Edição de clientes")
-    public ResponseEntity alterCliente(@PathVariable(value = "token") String token,@RequestBody cliente cliente){
+    public ResponseEntity alterCliente(@PathVariable(value = "token") String token,@RequestBody cliente clienteRecive){
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
         }else {
-            return ResponseEntity.status(HttpStatus.OK).body(services.alterCliente(cliente));
+            return ResponseEntity.status(HttpStatus.OK).body(services.alterCliente(clienteRecive));
         }
     }
     @PostMapping(path = "api/cliente/create")
@@ -44,7 +45,6 @@ public class clienteController {
         var resultClient = services.findRegister(cliente.getEmail());
         if(resultClient.get().getToken() != null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
         }else {
             return ResponseEntity.status(HttpStatus.OK).body(services.save(cliente));
         }
@@ -55,25 +55,17 @@ public class clienteController {
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
-
         }else {
             return ResponseEntity.status(HttpStatus.OK).body(services.findById(id));
         }
     }
-//    @GetMapping(path = "api/cliente/${name}")
-//    @ApiOperation(value = "Buscar cliente por nome")
-//    public ResponseEntity<Optional<Cliente>> findName(@RequestBody String name){
-//        return ResponseEntity.status(HttpStatus.OK).body(services.findByName(name));
-//    }
+
     @DeleteMapping(path = "api/cliente/delete/{token}")
     @ApiOperation(value = "Excluir cliente")
     public ResponseEntity delete(@RequestBody cliente cliente, @PathVariable(value = "token") String token){
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
-
         }else {
             services.delete(cliente);
             return ResponseEntity.status(HttpStatus.OK).body(true);
@@ -85,8 +77,6 @@ public class clienteController {
         var resultClient = services.findByToken(token);
         if(resultClient.get().getToken() ==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente já cadastrado!");
-
-
         }else {
             services.deletebyid(id);
             return ResponseEntity.status(HttpStatus.OK).body(true);
