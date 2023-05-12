@@ -3,6 +3,8 @@ package com.example.encurtadorurl.encurtador.url.controller;
 
 import com.example.encurtadorurl.encurtador.url.domain.password;
 import com.example.encurtadorurl.encurtador.url.domain.url;
+//import com.example.encurtadorurl.encurtador.url.dto.MessegeDTO;
+import com.example.encurtadorurl.encurtador.url.dto.MessegeDTO;
 import com.example.encurtadorurl.encurtador.url.service.ClienteService;
 import com.example.encurtadorurl.encurtador.url.service.urlService;
 import io.swagger.annotations.Api;
@@ -26,6 +28,9 @@ public class urlController {
 
     @Autowired
     private urlService services;
+
+    @Autowired
+    private RebbitMQController myController;
     @Autowired
     private ClienteService clienteService;
 
@@ -57,7 +62,7 @@ public class urlController {
                 }else {
                     var result = services.save(url.getUrl().replace("\"", ""),resultClient.get());
                     if (result.getHash() != null) {
-                        return ResponseEntity.status(HttpStatus.OK).body("OK");
+                        return ResponseEntity.status(HttpStatus.OK).body(result.getHash());
                     } else {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao encurtar a URL!");
                     }
@@ -91,6 +96,12 @@ public class urlController {
         url urlToRet = services.getHashUrl(url);
         try {
             response.sendRedirect(urlToRet.getUrl());
+
+            String hash = urlToRet.getHash();
+            String id = urlToRet.getId().toString();
+            MessegeDTO messegeDTO = new MessegeDTO();
+            messegeDTO.setMessage(id+hash);
+            myController.sendMessage(messegeDTO.getMessage());
             return ResponseEntity.status(HttpStatus.OK).body(true);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);

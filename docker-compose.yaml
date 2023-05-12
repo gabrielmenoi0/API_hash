@@ -40,6 +40,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - database
+      - rabbitmq
   database:
     image: postgres
     container_name: database
@@ -47,10 +48,23 @@ services:
       - POSTGRES_DB=h2db
       - POSTGRES_USER=h2user
       - POSTGRES_PASSWORD=h2password
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
 
 volumes:
   postgres-data:
