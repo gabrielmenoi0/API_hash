@@ -40,6 +40,36 @@
   <a href="#acesso-ao-projeto">Deploy na AWS</a> 
 </div>
 
+## Link API publicada na AWS
+
+<div align="center">
+  • <a href="#Descrição do Projeto">http://ec2-18-217-35-86.us-east-2.compute.amazonaws.com:8080/swagger-ui.html#</a>
+</div>
+
+## Configurações da máquina
+
+<p align="justify">•  SO: Ubuntu</p>
+<p align="justify">•  CPUs virtuais: 1 CPU Intel xeon E5-2686 v4 2.30ghz</p>
+<p align="justify">•  Memória: 1 GB</p>
+<p align="justify">•  Armazenamento 8 GB</p>
+
+## Teste de Stress
+Teste para 10000 mil requisições em 60 segundos
+
+<div align="center" class="row">
+<img src="readme/img_1.png" width="900" height="550"/>
+</div>
+
+## Metricas AWS Watch
+
+<div align="center" class="row">
+<img src="readme/AWS_Watch1.jpeg" width="1000" height="550"/>
+</div>
+<div align="center" class="row">
+<img src="readme/AWS_Watch2.jpeg" width="1000" height="550"/>
+</div>
+
+
 ## Integrantes da equipe
 <p align="justify">Gabriel Menoi - RA:602655</p>
 <p align="justify">Matheus Araújo - RA:603236</p>
