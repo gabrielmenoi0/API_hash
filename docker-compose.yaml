@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   api:
     image: 'openjdk:11'
     #    command: java -cp /app/resources:/app/classes:/app/libs/* com.h2database.server.web.WebServlet -pgWeb
@@ -16,11 +17,31 @@ services:
       - 'DB_URL=jdbc:h2:mem:urldb'
       - 'DB_USERNAME=sa'
       - 'DB_PASSWORD='
+    depends_on:
+      - prometheus
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
   redis:
     image: redis
     container_name: redis
     ports:
       - "6379:6379"
+  prometheus:
+    image: prom/prometheus:v2.30.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
   nginx:
     image: nginx
     container_name: nginx
@@ -68,3 +89,4 @@ services:
 
 volumes:
   postgres-data:
+  prometheus_data: { }

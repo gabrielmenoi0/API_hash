@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import springfox.documentation.annotations.Cacheable;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -92,20 +92,22 @@ public class urlController {
     @Cacheable("url/hash")
     @GetMapping(path = "api/url/{hash}")
     @ApiOperation(value = "Busca e redireciona URL original pelo HASH")
-    public ResponseEntity<?> findHash(@PathVariable(value = "hash")String url, HttpServletResponse response){
+    public RedirectView findHash(@PathVariable(value = "hash")String url, HttpServletResponse response) {
         url urlToRet = services.getHashUrl(url);
-        try {
-            response.sendRedirect(urlToRet.getUrl());
+        String urlRedirect = urlToRet.getUrl();
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(urlRedirect);
+//        try {
+//        String hash = urlToRet.getHash();
+//        String id = urlToRet.getId().toString();
+//        MessegeDTO messegeDTO = new MessegeDTO();
+//        messegeDTO.setMessage(id + hash);
+//        myController.sendMessage(messegeDTO.getMessage());
+//          }catch (ArrayIndexOutOfBoundsException e){
+//
+//        }
+        return redirectView;
 
-            String hash = urlToRet.getHash();
-            String id = urlToRet.getId().toString();
-            MessegeDTO messegeDTO = new MessegeDTO();
-            messegeDTO.setMessage(id+hash);
-            myController.sendMessage(messegeDTO.getMessage());
-            return ResponseEntity.status(HttpStatus.OK).body(true);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
-        }
     }
 
     @Cacheable("url/url")

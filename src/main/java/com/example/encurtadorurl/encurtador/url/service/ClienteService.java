@@ -25,13 +25,11 @@ public class ClienteService {
         var result = repository.save(user);
         return result.getToken();
     }
+
     public List<cliente> findAll() {
         return repository.findAll();
     }
 
-//    public Optional<Cliente> findByName(String name) {
-//        return clienteRepository.findByName(name);
-//    }
     public String dateSave(){
         LocalDate dataNascimento = LocalDate.now();
         return dataNascimento.toString();
