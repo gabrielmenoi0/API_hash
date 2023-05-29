@@ -63,10 +63,14 @@ Teste para 10000 mil requisições em 60 segundos
 ## Metricas AWS Watch
 
 <div align="center" class="row">
-<img src="readme/AWS_Watch1.jpeg" width="1000" height="550"/>
+<img src="readme/1.jpeg" width="1000" height="550"/>
 </div>
 <div align="center" class="row">
-<img src="readme/AWS_Watch2.jpeg" width="1000" height="550"/>
+<img src="readme/2.jpeg" width="1000" height="550"/>
+<div align="center" class="row">
+<img src="readme/3.jpeg" width="1000" height="550"/>
+<div align="center" class="row">
+<img src="readme/4.jpeg" width="1000" height="550"/>
 </div>
 
 
