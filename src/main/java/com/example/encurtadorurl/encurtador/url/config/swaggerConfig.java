@@ -24,9 +24,9 @@ public class swaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("API Encoder")
-                .description("API em desenvolvimento na aula de Development and Desing Patterns")
-                .version("1.0")
+        return new ApiInfoBuilder().title("API Hash")
+                .description("API em desenvolvimento na aula de desenvolvimento avançado de sistemas de informação")
+                .version("2.0")
                 .build();
     }
 
