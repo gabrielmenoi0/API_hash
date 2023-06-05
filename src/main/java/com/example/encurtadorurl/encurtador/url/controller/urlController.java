@@ -97,15 +97,16 @@ public class urlController {
         String urlRedirect = urlToRet.getUrl();
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(urlRedirect);
-//        try {
-//        String hash = urlToRet.getHash();
-//        String id = urlToRet.getId().toString();
-//        MessegeDTO messegeDTO = new MessegeDTO();
-//        messegeDTO.setMessage(id + hash);
-//        myController.sendMessage(messegeDTO.getMessage());
-//          }catch (ArrayIndexOutOfBoundsException e){
-//
-//        }
+        try {
+        String hash = urlToRet.getHash();
+        String id = urlToRet.getId().toString();
+        MessegeDTO messegeDTO = new MessegeDTO();
+        messegeDTO.setMessage(id +":"+ hash);
+        myController.sendMessage(messegeDTO.getMessage());
+          }catch (ArrayIndexOutOfBoundsException e){
+            return redirectView;
+
+        }
         return redirectView;
 
     }
